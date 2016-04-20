@@ -1,17 +1,34 @@
+/**
+ * CS2852 - 051
+ * Spring 2016
+ * Lab 5 - Network Simulator
+ * Name: Connor Christie
+ * Created: Apr 19, 2016
+ */
 package christieck.interfaces;
 
 import christieck.Packet;
 import christieck.exceptions.NetworkException;
 
+import java.io.IOException;
+
+/**
+ * A network, the "middle man" for a sender and receiver
+ */
 public interface INetwork extends ITask
 {
+    /**
+     * Starts the network
+     */
+    void start();
+
     /**
      * Connects the specified sender to the network
      *
      * @param sender The sender to connect
      * @throws NetworkException If the sender with the same address is already connected
      */
-    void connect(ISender sender) throws NetworkException;
+    void connect(ISender sender) throws NetworkException, IOException;
 
     /**
      * Connects the specified receiver to the network
@@ -19,7 +36,7 @@ public interface INetwork extends ITask
      * @param receiver The receiver to connect
      * @throws NetworkException If the receiver with the same address is already connected
      */
-    void connect(IReceiver receiver) throws NetworkException;
+    void connect(IReceiver receiver) throws NetworkException, IOException;
 
     /**
      * Sends the packet to the receiver
@@ -33,10 +50,9 @@ public interface INetwork extends ITask
     /**
      * Receives a packet from the network
      *
-     * @param address The address of the receiver receiving the packets
      * @param size The size available to receive
      */
-    Packet receive(int address, int size);
+    Packet receive(int size);
 
     /**
      * Checks whether there are any senders that are still trying to send packets
@@ -44,4 +60,18 @@ public interface INetwork extends ITask
      * @return Whether any senders are still sending packets
      */
     boolean isConnected();
+
+    /**
+     * Checks whether the sender is done sending packets
+     *
+     * @return Whether the sender has stopped sending packets
+     */
+    boolean isClosed();
+
+    /**
+     * Acknowledges a packet has been received
+     *
+     * @param packet The packet
+     */
+    void acknowledgePacket(Packet packet);
 }

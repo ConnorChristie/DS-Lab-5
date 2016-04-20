@@ -1,13 +1,23 @@
+/**
+ * CS2852 - 051
+ * Spring 2016
+ * Lab 5 - Network Simulator
+ * Name: Connor Christie
+ * Created: Apr 19, 2016
+ */
 package christieck;
 
+/**
+ * The packet, contains the sequence number, data and size of the data
+ */
 public class Packet
 {
-    private long sequenceNumber;
+    private int sequenceNumber;
 
     private char[] data;
     private int size;
 
-    public Packet(long sequenceNumber, char[] data, int size)
+    public Packet(int sequenceNumber, char[] data, int size)
     {
         this.sequenceNumber = sequenceNumber;
 
@@ -30,7 +40,7 @@ public class Packet
      *
      * @return The sequence number of the packet
      */
-    public long getSequenceNumber()
+    public int getSequenceNumber()
     {
         return sequenceNumber;
     }
